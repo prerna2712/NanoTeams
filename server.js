@@ -44,11 +44,11 @@ io.on("connection", socket => {
     });
 });
 
-// if (process.env.PROD) {
-//     app.use(express.static(path.join(__dirname, './client/build')));
-//     app.get('*', (req, res) => {
-//         res.sendFile(path.join(__dirname, './client/build/index.html'));
-//     });
+// if (process.env.PORT) {
+//     app.use(express.static('./client/build'));
+//     app.get('/*', function (req, res) {
+//         res.sendFile('index.html', { root: './client/build' })
+//     })
 // }
 
 server.listen(PORT, () => console.log('server is running on port 8000'));
