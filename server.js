@@ -7,6 +7,13 @@ const io = socket(server);
 
 const rooms = {};
 
+app.use(express.static('./public'));
+app.get('/*', function (req, res) {
+    res.sendFile('index.html', { root: './public' })
+})
+
+const PORT = process.env.PORT || 8000;
+
 io.on("connection", socket => {
     socket.on("join room", roomID => {
         if (rooms[roomID]) {
@@ -38,4 +45,4 @@ io.on("connection", socket => {
 });
 
 
-server.listen(8000, () => console.log('server is running on port 8000'));
+server.listen(PORT, () => console.log('server is running on port 8000'));
