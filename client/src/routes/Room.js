@@ -72,7 +72,7 @@ const Room = (props) => {
                 },
                 {
                     urls: 'turn:numb.viagenie.ca',
-                    credential: 'prerna',
+                    credential: 'Prerna_2712',
                     username: 'prernagupta2712@gmail.com'
                 },
             ]
@@ -98,17 +98,6 @@ const Room = (props) => {
         }).catch(e => console.log(e));
     }
 
-    function muteUnmute() {
-        if (isMuted) {
-            setMuted(false);
-            userVideo.current.srcObject.getAudioTracks().forEach((track) => (track.enabled = !track.enabled));
-        }
-        else {
-            setMuted(true);
-            userVideo.current.srcObject.getAudioTracks().forEach((track) => (track.enabled = !track.enabled));
-        }
-    }
-
     function handleRecieveCall(incoming) {
         peerRef.current = createPeer();
         const desc = new RTCSessionDescription(incoming.sdp);
@@ -127,20 +116,6 @@ const Room = (props) => {
             socket.current.emit("answer", payload);
         })
     }
-
-    let UserVideo;
-    if (stream) {
-        UserVideo = (
-            <div className="my-video">
-                <Video playsInline muted ref={userVideo} autoPlay />
-            </div>
-        );
-    }
-
-    let PartnerVideo;
-    PartnerVideo = (
-        <div className="friend-video"><Video playsInline ref={partnerVideo} autoPlay /></div>
-    );
 
     function handleAnswer(message) {
         const desc = new RTCSessionDescription(message.sdp);
@@ -167,6 +142,32 @@ const Room = (props) => {
     function handleTrackEvent(e) {
         partnerVideo.current.srcObject = e.streams[0];
     };
+
+
+    let UserVideo;
+    if (stream) {
+        UserVideo = (
+            <div className="my-video">
+                <Video playsInline muted ref={userVideo} autoPlay />
+            </div>
+        );
+    }
+
+    let PartnerVideo;
+    PartnerVideo = (
+        <div className="friend-video"><Video playsInline ref={partnerVideo} autoPlay /></div>
+    );
+
+    function muteUnmute() {
+        if (isMuted) {
+            setMuted(false);
+            userVideo.current.srcObject.getAudioTracks().forEach((track) => (track.enabled = !track.enabled));
+        }
+        else {
+            setMuted(true);
+            userVideo.current.srcObject.getAudioTracks().forEach((track) => (track.enabled = !track.enabled));
+        }
+    }
 
     function pauseVideo() {
         if (!isPlaying && stream) {

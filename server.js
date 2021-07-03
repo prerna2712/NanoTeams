@@ -7,10 +7,10 @@ const io = socket(server);
 
 const rooms = {};
 
-app.use(express.static('./public'));
-app.get('/*', function (req, res) {
-    res.sendFile('index.html', { root: './public' })
-})
+// app.use(express.static('./public'));
+// app.get('/*', function (req, res) {
+//     res.sendFile('index.html', { root: './public' })
+// })
 
 const PORT = process.env.PORT || 8000;
 
@@ -44,5 +44,11 @@ io.on("connection", socket => {
     });
 });
 
+if (process.env.PROD) {
+    app.use(express.static(path.join(__dirname, './client/build')));
+    app.get('*', (req, res) => {
+        res.sendFile(path.join(__dirname, './client/build/index.html'));
+    });
+}
 
 server.listen(PORT, () => console.log('server is running on port 8000'));
