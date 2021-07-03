@@ -1,0 +1,12 @@
+{
+  "name": "video-chat",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "dependencies": {
+    "express": "^4.17.1",
+    "nodemon": "^2.0.8",
+    "simple-peer": "^9.11.0",
+    "socket.io": "^2.3.0"
+  }
+}

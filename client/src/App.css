@@ -1,0 +1,166 @@
+.App {
+  text-align: center;
+}
+
+.App-logo {
+  height: 40vmin;
+  pointer-events: none;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .App-logo {
+    animation: App-logo-spin infinite 20s linear;
+  }
+}
+
+.App-header {
+  background-color: #282c34;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: calc(10px + 2vmin);
+  color: white;
+}
+
+.App-link {
+  color: #61dafb;
+}
+
+@keyframes App-logo-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.my-video{
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 10;
+  margin: 40px;
+  border-radius: 10px !important;
+  max-width: 15% !important;
+  max-height: 15% !important;
+  background: #000000;
+  transform: rotateY(180deg);
+  -webkit-transform: rotateY(180deg);
+}
+
+.friend-video{
+  z-index: 1;
+  margin-top: 30px;
+  margin-left: 30px;
+  margin-bottom: 30px !important;
+  margin-right: 30px !important;
+  border-radius: 10px !important;
+  background: #000000;
+  overflow: hidden;
+  width: 97vw !important;
+  height: 86vh !important;
+}
+
+button {
+  cursor: pointer;
+}
+
+.callers{
+  position: relative;
+}
+
+.call-action {
+  position: relative;
+  display: flex;
+  justify-content: center;
+}
+
+.peers {
+  position: fixed;
+  top: 85%;
+}
+
+.video-call-div {
+  border-radius: 10px;
+  width: 100%;
+  height: 100%;
+  background: #000000;
+}
+
+.footer{
+  width: 100vw;
+  height: 7vh;
+  background: #263238;
+}
+
+.btn-circle {
+  width: 60px;
+  height: 60px;
+  padding: 6px 0px;
+  border-radius: 30px;
+  background: #ADB5BD;
+  margin-top: -15px !important;
+  font-size: 18px;
+  color:  #263238;
+  text-align: center;
+  margin-right: 10px;
+}
+
+.btn-unmute {
+  width: 60px;
+  height: 60px;
+  padding: 6px 0px;
+  border-radius: 30px;
+  margin-top: -15px !important;
+  font-size: 18px;
+  color:  #263238;
+  text-align: center;
+  background: #ADB5BD;
+  transition: linear 0.7s;
+}
+
+.btn-mute {
+  width: 60px;
+  height: 60px;
+  padding: 6px 0px;
+  border-radius: 30px;
+  margin-top: -15px !important;
+  font-size: 18px;
+  color:  #263238;
+  text-align: center;
+  background: rgb(241, 23, 23);
+  transition: linear s;
+}
+
+.btn-video-off {
+  width: 60px;
+  height: 60px;
+  padding: 6px 0px;
+  border-radius: 30px;
+  margin-top: -15px !important;
+  margin-left: 10px;
+  margin-right: 10px;
+  font-size: 18px;
+  color:  #263238;
+  text-align: center;
+  background: rgb(241, 23, 23);
+  transition: linear 0.7s;
+}
+
+.btn-video-on {
+  width: 60px;
+  height: 60px;
+  padding: 6px 0px;
+  border-radius: 30px;
+  margin-top: -15px !important;
+  margin-left: 10px;
+  margin-right: 10px;
+  font-size: 18px;
+  color:  #263238;
+  text-align: center;
+  background: #ADB5BD;
+  transition: linear s;
+}
