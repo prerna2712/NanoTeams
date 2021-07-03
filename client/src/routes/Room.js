@@ -72,8 +72,8 @@ const Room = (props) => {
                 },
                 {
                     urls: 'turn:numb.viagenie.ca',
-                    credential: 'muazkh',
-                    username: 'webrtc@live.com'
+                    credential: 'prerna',
+                    username: 'prernagupta2712@gmail.com'
                 },
             ]
         });
@@ -191,8 +191,11 @@ const Room = (props) => {
 
     function leaveCall() {
         socket.current.destroy();
-        userVideo.current.destroy();
-        window.location.reload();
+        // userVideo.current.destroy();
+        // window.location.reload();
+        userStream.current.getVideoTracks()[0].enabled = false;
+        userStream.current.getAudioTracks()[0].enabled = false;
+        window.location.replace("/");
     }
 
     return (
