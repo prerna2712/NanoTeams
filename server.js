@@ -7,9 +7,9 @@ const io = socket(server);
 
 const rooms = {};
 
-app.use(express.static('./client/build'));
+app.use(express.static('./build'));
 app.get('/*', function (req, res) {
-    res.sendFile('index.html', { root: './client/build' })
+    res.sendFile('index.html', { root: './build' })
 })
 
 const PORT = process.env.PORT || 8000;
