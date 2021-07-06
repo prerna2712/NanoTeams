@@ -66,15 +66,18 @@ const Room = (props) => {
 
     function createPeer(userID) {
         const peer = new RTCPeerConnection({
+            trickel: false,
             iceServers: [
                 {
                     urls: "stun:stun.stunprotocol.org"
                 },
                 {
-                    urls: "turn:numb.viagenie.ca",
-                    username: "sultan1640@gmail.com",
-                    credential: "98376683"
-                },
+                    "urls": [
+                    "turn:13.250.13.83:3478?transport=udp"
+                    ],
+                    "username": "YzYNCouZM1mhqhmseWk6",
+                    "credential": "YzYNCouZM1mhqhmseWk6"
+                    }
             ]
         });
 
@@ -191,11 +194,11 @@ const Room = (props) => {
     }
 
     function leaveCall() {
-        // socket.current.destroy();
-        // userVideo.current.destroy();
+        socket.current.destroy();
+        userVideo.current.srcObject.destroy();
         // window.location.reload();
-        userVideo.current.getVideoTracks()[0].enabled = false;
-        userVideo.current.getAudioTracks()[0].enabled = false;
+        // userVideo.current.getVideoTracks()[0].enabled = false;
+        // userVideo.current.getAudioTracks()[0].enabled = false;
         window.location.replace("/");
     }
 
