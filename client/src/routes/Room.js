@@ -71,9 +71,9 @@ const Room = (props) => {
                     urls: "stun:stun.stunprotocol.org"
                 },
                 {
-                    urls: 'turn:numb.viagenie.ca',
-                    credential: 'Prerna_2712',
-                    username: 'prernagupta2712@gmail.com'
+                    urls: "turn:numb.viagenie.ca",
+                    username: "sultan1640@gmail.com",
+                    credential: "98376683"
                 },
             ]
         });
