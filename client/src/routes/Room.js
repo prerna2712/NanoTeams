@@ -72,12 +72,10 @@ const Room = (props) => {
                     urls: "stun:stun.stunprotocol.org"
                 },
                 {
-                    "urls": [
-                    "turn:13.250.13.83:3478?transport=udp"
-                    ],
-                    "username": "YzYNCouZM1mhqhmseWk6",
-                    "credential": "YzYNCouZM1mhqhmseWk6"
-                    }
+                    url: 'turn:192.158.29.39:3478?transport=udp',
+                    credential: 'JZEOEt2V3Qb0y27GRntt2u2PAYA=',
+                    username: '28224511:1379330808'
+                },
             ]
         });
 
