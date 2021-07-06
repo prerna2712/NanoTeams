@@ -190,13 +190,11 @@ const Room = (props) => {
             );
         }
     }
-
+    // this works, don't touch it
     function leaveCall() {
         socket.current.destroy();
-        userVideo.current.srcObject.destroy();
-        // window.location.reload();
-        // userVideo.current.getVideoTracks()[0].enabled = false;
-        // userVideo.current.getAudioTracks()[0].enabled = false;
+        userStream.current.getVideoTracks()[0].enabled = false;
+        userStream.current.getAudioTracks()[0].enabled = false;
         window.location.replace("/");
     }
 
