@@ -7,6 +7,21 @@ const socket = require("socket.io");
 const io = socket(server);
 
 const rooms = {};
+// Pusher start
+const Pusher = require("pusher");
+
+const pusher = new Pusher({
+  appId: "1231591",
+  key: "1f126db1115d0d274821",
+  secret: "9017383c9e03b8c87f9b",
+  cluster: "ap2",
+  useTLS: true
+});
+
+// pusher.trigger("my-channel", "my-event", {
+//   message: "hello world"
+// });
+// Pusher end
 
 app.use(express.static('./build'));
 app.get('/*', function (req, res) {

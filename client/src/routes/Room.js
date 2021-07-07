@@ -195,6 +195,7 @@ const Room = (props) => {
         socket.current.destroy();
         userStream.current.getVideoTracks()[0].enabled = false;
         userStream.current.getAudioTracks()[0].enabled = false;
+        // userStream.current.destroy();
         window.location.replace("/");
     }
 
