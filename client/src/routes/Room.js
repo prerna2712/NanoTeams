@@ -54,7 +54,7 @@ const Room = (props) => {
 
             socket.current.on("answer", handleAnswer);
 
-            socket.current.on("ice-candidate", handleNewICECandidateMsg);
+            // socket.current.on("ice-candidate", handleNewICECandidateMsg);
         });
 
     }, []);
@@ -133,12 +133,12 @@ const Room = (props) => {
         }
     }
 
-    function handleNewICECandidateMsg(incoming) {
-        const candidate = new RTCIceCandidate(incoming);
+    // function handleNewICECandidateMsg(incoming) {
+    //     const candidate = new RTCIceCandidate(incoming);
 
-        peerRef.current.addIceCandidate(candidate)
-            .catch(e => console.log(e));
-    }
+    //     peerRef.current.addIceCandidate(candidate)
+    //         .catch(e => console.log(e));
+    // }
 
     function handleTrackEvent(e) {
         partnerVideo.current.srcObject = e.streams[0];
