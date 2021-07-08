@@ -33,12 +33,15 @@ const PORT = process.env.PORT || 8000;
 io.on("connection", socket => {
     socket.on("join room", roomID => {
         if (rooms[roomID]) {
+            console.log("joining-room");
             rooms[roomID].push(socket.id);
         } else {
+            console.log("creating room");
             rooms[roomID] = [socket.id];
         }
         const otherUser = rooms[roomID].find(id => id !== socket.id);
         if (otherUser) {
+            console.log("giving offer");
             socket.emit("other user", otherUser);
             socket.to(otherUser).emit("user joined", socket.id);
         }
@@ -48,14 +51,17 @@ io.on("connection", socket => {
     });
 
     socket.on("offer", payload => {
+        console.log("offer emitted");
         io.to(payload.target).emit("offer", payload);
     });
 
     socket.on("answer", payload => {
+        console.log("call answered");
         io.to(payload.target).emit("answer", payload);
     });
 
     socket.on("ice-candidate", incoming => {
+        console.log("handeled ice candidate");
         io.to(incoming.target).emit("ice-candidate", incoming.candidate);
     });
 });
