@@ -54,7 +54,7 @@ const Room = (props) => {
 
             socket.current.on("answer", handleAnswer);
 
-            // socket.current.on("ice-candidate", handleNewICECandidateMsg);
+            socket.current.on("ice-candidate", handleNewICECandidateMsg);
         });
 
     }, []);
@@ -68,9 +68,11 @@ const Room = (props) => {
         const peer = new RTCPeerConnection({
             // trickel: false,
             iceServers: [
-                {
-                    urls: "stun:stun.stunprotocol.org"
-                }
+                { urls: 'stun:stun.l.google.com:19302' },
+                { urls: 'stun:stun1.l.google.com:19302' },
+                { urls: 'stun:stun2.l.google.com:19302' },
+                { urls: 'stun:stun3.l.google.com:19302' },
+                { urls: 'stun:stun4.l.google.com:19302' },
                 // {
                 //     url: 'turn:192.158.29.39:3478?transport=udp',
                 //     credential: 'JZEOEt2V3Qb0y27GRntt2u2PAYA=',
@@ -133,12 +135,12 @@ const Room = (props) => {
         }
     }
 
-    // function handleNewICECandidateMsg(incoming) {
-    //     const candidate = new RTCIceCandidate(incoming);
+    function handleNewICECandidateMsg(incoming) {
+        const candidate = new RTCIceCandidate(incoming);
 
-    //     peerRef.current.addIceCandidate(candidate)
-    //         .catch(e => console.log(e));
-    // }
+        peerRef.current.addIceCandidate(candidate)
+            .catch(e => console.log(e));
+    }
 
     function handleTrackEvent(e) {
         partnerVideo.current.srcObject = e.streams[0];
