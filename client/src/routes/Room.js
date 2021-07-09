@@ -202,7 +202,7 @@ const Room = (props) => {
     }
 
     return (
-        <div>
+        <div className="main">
             <Container>
                 {UserVideo}
                 {PartnerVideo}
