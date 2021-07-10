@@ -226,8 +226,6 @@ const Room = (props) => {
         partnerVideo.current.srcObject = e.streams[0];
     };
 
-
-
     // added for msg
     function handleChange(e) {
         setText(e.target.value);

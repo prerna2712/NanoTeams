@@ -27,9 +27,10 @@ io.on("connection", socket => {
             socket.emit("other user", otherUser);
             socket.to(otherUser).emit("user joined", socket.id);
         }
-        socket.on('disconnect', () => {
-            delete rooms[roomID];
-        })
+        // deletes the room on diconnection, or user reload
+        // socket.on('disconnect', () => {
+        //     delete rooms[roomID];
+        // })
     });
 
     socket.on("offer", payload => {
