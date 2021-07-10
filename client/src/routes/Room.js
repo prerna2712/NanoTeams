@@ -4,6 +4,7 @@ import io from "socket.io-client";
 import styled from "styled-components";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import copy from 'copy-to-clipboard';
 
 const Container = styled.div`
   position: fixed;
@@ -263,6 +264,10 @@ const Room = (props) => {
         }
     }
 
+    function copyUrl() {
+        copy(window.location.href);
+    }
+
     let UserVideo;
     if (stream) {
         UserVideo = (
@@ -327,6 +332,7 @@ const Room = (props) => {
                 <footer className="footer page-footer footer-copyright font-small fixed-bottom text-center py-3 special-color pt-4">
                     <div className="call-action">
                         {/* {incomingCall} */}
+                        <button className="btn-circle" onClick={copyUrl}><FontAwesomeIcon icon="clipboard" /></button>
                         <button onClick={muteUnmute} className={isMuted ? "btn-mute" : "btn-unmute"}>
                             <FontAwesomeIcon icon={isMuted ? 'microphone-slash' : 'microphone'} />
                         </button>
@@ -343,7 +349,7 @@ const Room = (props) => {
             </div>
             <div className={chatShow ? "chatVis" : "chatHide"}>
                 <div className="main__header">
-                    <h5><b>In-call messages</b></h5>
+                    <h6>In-call messages</h6>
                 </div>
                 <div className="chat-area">
                     <Message>
