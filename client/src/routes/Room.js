@@ -19,10 +19,57 @@ const Video = styled.video`
   background: #000000;
 `;
 
+//added for msg
+const Message = styled.div`
+    // border: 1px solid black;
+    margin-top: 10px;
+`;
+
+const MessageBox = styled.textarea`
+    backgroud-color: white;
+    width: 20vw;
+    height: 100%;
+`;
+
+const MyMessage = styled.div`
+  background-color: #ADB5BD;
+  border-radius: 10px; 
+  color: black;
+  border: 1px solid lightgray;
+  padding: 10px;
+  margin-right: 5px;
+  text-align: center;
+`;
+
+const MyRow = styled.div`
+  backgroud-color: white;
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 10px;
+  overflow: hidden;
+`;
+
+const PartnerRow = styled(MyRow)`
+  justify-content: flex-start;
+`;
+
+const PartnerMessage = styled.div`
+  background-color: black;
+  color: white;
+  border-radius: 10px; 
+  border: 1px solid lightgray;
+  padding: 10px;
+  margin-left: 5px;
+  text-align: center;
+`;
+
 const Room = (props) => {
     const [isMuted, setMuted] = useState(false);
     const [isPlaying, setPlaying] = useState(true);
     const [stream, setStream] = useState();
+    const [chatShow, setChatShow] = useState(false);
+    const [text, setText] = useState("");
+    const [message, setMessage] = useState([]);
 
     const userVideo = useRef();
     const partnerVideo = useRef();
@@ -30,6 +77,8 @@ const Room = (props) => {
     const socket = useRef();
     const otherUser = useRef();
     const userStream = useRef();
+    const sendChannel = useRef();
+
 
     useEffect(() => {
         navigator.mediaDevices.getUserMedia({ audio: true, video: true }).then(stream => {
@@ -55,6 +104,12 @@ const Room = (props) => {
             socket.current.on("answer", handleAnswer);
 
             socket.current.on("ice-candidate", handleNewICECandidateMsg);
+
+            // added for message
+            // socket.on("createMessage", message => {
+            //     ("ul").append(`<li className="message">${message}</li>`)
+            // });
+            // message addition ends here
         });
 
     }, []);
@@ -62,7 +117,17 @@ const Room = (props) => {
     function callUser(userID) {
         peerRef.current = createPeer(userID);
         userStream.current.getTracks().forEach(track => peerRef.current.addTrack(track, userStream.current));
+        // added for msg
+        sendChannel.current = peerRef.current.createDataChannel("sendChannel");
+        sendChannel.current.onmessage = handleReceiveMessage;
     }
+
+    // added for msg
+    function handleReceiveMessage(e) {
+        setMessage(message => [...message, { yours: false, value: e.data }]);
+    }
+
+
 
     function createPeer(userID) {
         const peer = new RTCPeerConnection({
@@ -101,8 +166,40 @@ const Room = (props) => {
         }).catch(e => console.log(e));
     }
 
+    function handleICECandidateEvent(e) {
+        if (e.candidate) {
+            const payload = {
+                target: otherUser.current,
+                candidate: e.candidate,
+            }
+            socket.current.emit("ice-candidate", payload);
+        }
+    }
+
+    function handleNewICECandidateMsg(incoming) {
+        const candidate = new RTCIceCandidate(incoming);
+
+        peerRef.current.addIceCandidate(candidate)
+            .catch(e => console.log(e));
+    }
+
+    function toggleChat() {
+        if (chatShow) {
+            setChatShow(false);
+        }
+        else {
+            setChatShow(true);
+        }
+    }
+
     function handleRecieveCall(incoming) {
         peerRef.current = createPeer();
+        // added for msg
+        peerRef.current.ondatachannel = (event) => {
+            sendChannel.current = event.channel;
+            sendChannel.current.onmessage = handleReceiveMessage;
+        };
+        // ends here
         const desc = new RTCSessionDescription(incoming.sdp);
         peerRef.current.setRemoteDescription(desc).then(() => {
             userStream.current.getTracks().forEach(track => peerRef.current.addTrack(track, userStream.current));
@@ -125,27 +222,48 @@ const Room = (props) => {
         peerRef.current.setRemoteDescription(desc).catch(e => console.log(e));
     }
 
-    function handleICECandidateEvent(e) {
-        if (e.candidate) {
-            const payload = {
-                target: otherUser.current,
-                candidate: e.candidate,
-            }
-            socket.current.emit("ice-candidate", payload);
-        }
-    }
-
-    function handleNewICECandidateMsg(incoming) {
-        const candidate = new RTCIceCandidate(incoming);
-
-        peerRef.current.addIceCandidate(candidate)
-            .catch(e => console.log(e));
-    }
-
     function handleTrackEvent(e) {
         partnerVideo.current.srcObject = e.streams[0];
     };
 
+
+
+    // added for msg
+    function handleChange(e) {
+        setText(e.target.value);
+    }
+
+    // added for msg
+    function sendMessage(e) {
+        sendChannel.current.send(text);
+        setMessage(message => [...message, { yours: true, value: text }]);
+        setText("");
+    }
+
+    // added for msg
+    function renderMessage(message, index) {
+        if (message.value != "") {
+            if (message.yours) {
+                window.scrollTo(0,5000);
+                return (
+                    <MyRow key={index}>
+                        <MyMessage>
+                            {message.value}
+                        </MyMessage>
+                    </MyRow>
+                )
+            }
+            else {
+                return (
+                    <PartnerRow key={index}>
+                        <PartnerMessage>
+                            {message.value}
+                        </PartnerMessage>
+                    </PartnerRow>
+                )
+            }
+        }
+    }
 
     let UserVideo;
     if (stream) {
@@ -203,25 +321,42 @@ const Room = (props) => {
 
     return (
         <div className="main">
-            <Container>
-                {UserVideo}
-                {PartnerVideo}
-            </Container>
-            <footer className="footer page-footer footer-copyright font-small fixed-bottom text-center py-3 special-color pt-4">
-                <div className="call-action">
-                    {/* {incomingCall} */}
-                    <button onClick={muteUnmute} className={isMuted ? "btn-mute" : "btn-unmute"}>
-                        <FontAwesomeIcon icon={isMuted ? 'microphone-slash' : 'microphone'} />
-                    </button>
-                    <button className={isPlaying ? "btn-video-on" : "btn-video-off"} onClick={pauseVideo}>
-                        <FontAwesomeIcon icon={isPlaying ? 'eye' : 'eye-slash'} />
-                    </button>
-                    <button className="leave btn-circle" onClick={leaveCall} >
-                        <FontAwesomeIcon icon="phone-slash" />
-                    </button>
-                    {/* <button onClick={shareScreen}>share</button> */}
+            <div className={chatShow ? "leftHide" : "leftVis"}>
+                <Container>
+                    {UserVideo}
+                    {PartnerVideo}
+                </Container>
+                <footer className="footer page-footer footer-copyright font-small fixed-bottom text-center py-3 special-color pt-4">
+                    <div className="call-action">
+                        {/* {incomingCall} */}
+                        <button onClick={muteUnmute} className={isMuted ? "btn-mute" : "btn-unmute"}>
+                            <FontAwesomeIcon icon={isMuted ? 'microphone-slash' : 'microphone'} />
+                        </button>
+                        <button className={isPlaying ? "btn-video-on" : "btn-video-off"} onClick={pauseVideo}>
+                            <FontAwesomeIcon icon={isPlaying ? 'eye' : 'eye-slash'} />
+                        </button>
+                        <button className="leave btn-circle" onClick={leaveCall} >
+                            <FontAwesomeIcon icon="phone-slash" />
+                        </button>
+                        <button onClick={toggleChat} className="btn-circle"><FontAwesomeIcon icon="comment-alt" /></button>
+                        {/* <button onClick={shareScreen}>share</button> */}
+                    </div>
+                </footer>
+            </div>
+            <div className={chatShow ? "chatVis" : "chatHide"}>
+                <div className="main__header">
+                    <h5><b>In-call messages</b></h5>
                 </div>
-            </footer>
+                <div className="chat-area">
+                    <Message>
+                        {message.map(renderMessage)}
+                    </Message>
+                </div>
+                <div className="text-area">
+                    <div><MessageBox className="textBox" value={text} onChange={handleChange} placeholder="Enter msg here..." />
+                    <button className="send" onClick={sendMessage}><FontAwesomeIcon icon="paper-plane" /></button></div>
+                </div>
+            </div>
         </div>
     );
 };

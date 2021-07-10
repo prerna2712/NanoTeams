@@ -44,9 +44,9 @@ io.on("connection", socket => {
         io.to(incoming.target).emit("ice-candidate", incoming.candidate);
     });
     // added for chat -> starts here
-    socket.on('message', (message) => {
-        io.to(roomID).emit('createMessage', message);
-    });
+    // socket.on('message', (message) => {
+    //     io.to(roomID).emit('createMessage', message);
+    // });
     // chat -> ends here
 });
 
