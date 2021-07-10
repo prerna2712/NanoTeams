@@ -118,7 +118,6 @@ header h3 {
   position: absolute;
   background-color: white;
   border-radius: 20px;
-  transition: linear 5s;
 }
 
 .chatHide {
