@@ -239,6 +239,18 @@ const Room = (props) => {
         setText("");
     }
 
+    // function screenShare() {
+    //     //function allows toshare screen with the partner user basically swaps out the current video track
+    //     //with the the screen track
+    //     navigator.mediaDevices.getDisplayMedia({ cursor: true }).then(stream => {
+    //         const screenTrack = stream.getTracks()[0];
+    //         senders.current.find(sender => sender.track.kind === 'video').replaceTrack(screenTrack);
+    //         screenTrack.onended = function() {
+    //             senders.current.find(sender => sender.track.kind === "video").replaceTrack(userStream.current.getTracks()[1]);
+    //         }
+    //     })
+    // }
+
     // added for msg
     function renderMessage(message, index) {
         if (message.value != "") {
@@ -331,7 +343,6 @@ const Room = (props) => {
                 </Container>
                 <footer className="footer page-footer footer-copyright font-small fixed-bottom text-center py-3 special-color pt-4">
                     <div className="call-action">
-                        {/* {incomingCall} */}
                         <button className="btn-circle" onClick={copyUrl}><FontAwesomeIcon icon="clipboard" /></button>
                         <button onClick={muteUnmute} className={isMuted ? "btn-mute" : "btn-unmute"}>
                             <FontAwesomeIcon icon={isMuted ? 'microphone-slash' : 'microphone'} />
