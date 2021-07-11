@@ -254,7 +254,7 @@ button {
   color: red;
   text-align: center;
   background: black;
-  transition: linear s;
+  transition: linear 0.7s;
 }
 
 .btn-video-off {

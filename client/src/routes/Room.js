@@ -343,17 +343,17 @@ const Room = (props) => {
                 </Container>
                 <footer className="footer page-footer footer-copyright font-small fixed-bottom text-center py-3 special-color pt-4">
                     <div className="call-action">
-                        <button className="btn-circle" onClick={copyUrl}><FontAwesomeIcon icon="clipboard" /></button>
-                        <button onClick={muteUnmute} className={isMuted ? "btn-mute" : "btn-unmute"}>
+                        <button className="btn-circle" title="copy URL" onClick={copyUrl}><FontAwesomeIcon icon="clipboard" /></button>
+                        <button onClick={muteUnmute} title="audio" className={isMuted ? "btn-mute" : "btn-unmute"}>
                             <FontAwesomeIcon icon={isMuted ? 'microphone-slash' : 'microphone'} />
                         </button>
-                        <button className={isPlaying ? "btn-video-on" : "btn-video-off"} onClick={pauseVideo}>
+                        <button className={isPlaying ? "btn-video-on" : "btn-video-off"} title="video" onClick={pauseVideo}>
                             <FontAwesomeIcon icon={isPlaying ? 'eye' : 'eye-slash'} />
                         </button>
-                        <button className="leave btn-circle" onClick={leaveCall} >
+                        <button title="leave" className="leave btn-circle" onClick={leaveCall} >
                             <FontAwesomeIcon icon="phone-slash" />
                         </button>
-                        <button onClick={toggleChat} className="btn-circle"><FontAwesomeIcon icon="comment-alt" /></button>
+                        <button title="chat" onClick={toggleChat} className="btn-circle"><FontAwesomeIcon icon="comment-alt" /></button>
                         {/* <button onClick={shareScreen}>share</button> */}
                     </div>
                 </footer>
