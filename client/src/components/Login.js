@@ -69,7 +69,7 @@ export default function Login() {
             <br />
             <Form.Group id="password">
               <Form.Label>Password</Form.Label>
-              <Form.Control type="password" ref={passwordRef} placeholder="Email" required />
+              <Form.Control type="password" ref={passwordRef} required />
             </Form.Group>
             <br/>
             <Button disabled={loading} className="w-100" type="submit">
