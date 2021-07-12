@@ -5,6 +5,57 @@
 #home {
   background-color: black;
   z-index: -1;
+  color: white;
+}
+
+.credits {
+  min-width: 100vw;
+  top: 95vh;
+  left: 0;
+  position: absolute;
+  overflow-x: hidden;
+  overflow: hidden !important;
+  width: 100vw;
+}
+
+.heading {
+  font-weight: 700;
+}
+
+.login-card {
+  border-radius: 20px;
+  z-index: 10;
+  top: -75vh;
+  left: 10vw;
+  height: 40vh;
+  width: 30vw;
+  background-color: black;
+  color: white;
+}
+
+.hero {
+  overflow: hidden;
+  height: 100vh !important;
+  max-width: 100vw;
+  z-index: 1;
+}
+
+.auth {
+  height: 100vh;
+  width: 100vw;
+  background-color: black;
+  z-index: -1;
+}
+
+.signup-card {
+  border-radius: 20px;
+  z-index: 10;
+  top: -75vh;
+  left: 10vw;
+  height: 40vh;
+  width: 30vw;
+  background-color: black;
+  color: white;
 }
 
 .chat-area {
@@ -79,6 +130,34 @@ header h3 {
   border: white;
   cursor: pointer;
   height: auto;
+}
+
+.button-logs {
+  z-index: 20;
+  font: 16px/30px 'opensans-bold', sans-serif;
+  background: #00cab9;
+  display: inline-block;
+ text-decoration: none;
+  letter-spacing: 0;
+  font-weight: 800;
+  width: 20vw;
+ padding: 12px 20px;
+ margin-bottom: 18px;
+ margin-left: 20px;
+ border-radius: 20px;
+  border: white;
+  cursor: pointer;
+  height: auto;
+  color: white
+}
+
+.btn-sgn {
+  background-color: blue;
+}
+
+.link {
+  color: white;
+  text-decoration: none;
 }
 
 .leftVis {
@@ -271,6 +350,10 @@ button {
   text-align: center;
   background: black;
   transition: linear 0.7s;
+}
+
+.L {
+  color: rgb(0, 195, 255)
 }
 
 .leave {

@@ -239,18 +239,6 @@ const Room = (props) => {
         setText("");
     }
 
-    // function screenShare() {
-    //     //function allows toshare screen with the partner user basically swaps out the current video track
-    //     //with the the screen track
-    //     navigator.mediaDevices.getDisplayMedia({ cursor: true }).then(stream => {
-    //         const screenTrack = stream.getTracks()[0];
-    //         senders.current.find(sender => sender.track.kind === 'video').replaceTrack(screenTrack);
-    //         screenTrack.onended = function() {
-    //             senders.current.find(sender => sender.track.kind === "video").replaceTrack(userStream.current.getTracks()[1]);
-    //         }
-    //     })
-    // }
-
     // added for msg
     function renderMessage(message, index) {
         if (message.value != "") {
@@ -331,7 +319,7 @@ const Room = (props) => {
         userStream.current.getVideoTracks()[0].enabled = false;
         userStream.current.getAudioTracks()[0].enabled = false;
         // userStream.current.destroy();
-        window.location.replace("/");
+        window.location.replace("/create");
     }
 
     return (
@@ -354,7 +342,7 @@ const Room = (props) => {
                             <FontAwesomeIcon icon="phone-slash" />
                         </button>
                         <button title="chat" onClick={toggleChat} className="btn-circle"><FontAwesomeIcon icon="comment-alt" /></button>
-                        {/* <button onClick={shareScreen}>share</button> */}
+                        {/* <button onClick={screenShare}>share</button> */}
                     </div>
                 </footer>
             </div>
