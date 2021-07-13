@@ -265,7 +265,10 @@ const Room = (props) => {
     }
 
     function copyUrl() {
-        copy(window.location.href);
+        // var url = "/room/" + props.match.params.roomID;
+        // console.log(url);
+        copy(props.match.params.roomID);
+        // copy(window.location.href);
     }
 
     let UserVideo;
