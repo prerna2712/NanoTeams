@@ -10,8 +10,8 @@
 - In call chat
 - Firebase Authentication
 
-<p> Check the live demo here: [NanoTeams]( http://nano-teams.herokuapp.com/ ) </p>
-<p> Check the live demo here: [Video Demo]( https://drive.google.com/drive/u/0/folders/1NTnZ8XnHSz6NRjYZ-q5QXDNvXnwoM50d ) </p>
+<p> Check the live demo here: [Nano Teams](https://nano-teams.herokuapp.com/) </p>
+<p> Check the live demo here: [Video Demo](https://drive.google.com/drive/u/0/folders/1NTnZ8XnHSz6NRjYZ-q5QXDNvXnwoM50d) </p>
 
 **For running on your local system:**
 ----
